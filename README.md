@@ -36,7 +36,7 @@ WebSocket.
 
 ``` bash
 git clone https://github.com/BenyaminShoushtari/TeleTrack_V2.git
-cd mazaneh-monitor
+cd TeleTrack_V2
 ```
 
 ------------------------------------------------------------------------
