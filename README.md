@@ -96,9 +96,9 @@ python telegramscrap.py
 ------------------------------------------------------------------------
 
 # 📂 Generated Files
-
-    mazaneh.db
-    mazaneh_monitor.log
+    
+    TeleTrack_V2.db    
+    TeleTrack_V2_monitor.log
 
 ------------------------------------------------------------------------
 
