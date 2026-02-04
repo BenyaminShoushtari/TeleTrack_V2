@@ -35,7 +35,7 @@ WebSocket.
 ## 1️⃣ Clone Repository
 
 ``` bash
-git clone https://github.com/YOUR_USERNAME/mazaneh-monitor.git
+git clone https://github.com/BenyaminShoushtari/TeleTrack_V2.git
 cd mazaneh-monitor
 ```
 
