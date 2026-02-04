@@ -1,123 +1,142 @@
 📡 Mazaneh Monitor — Real-Time Telegram Price Stream
+یک مانیتور قدرتمند و بلادرنگ برای کانال‌های تلگرام که داده‌های قیمت را استخراج می‌کند، در SQLite ذخیره می‌نماید (با زمان‌های میلادی و شمسی) و بروزرسانی‌ها را از طریق WebSocket پخش می‌کند.
 
-Real-time Telegram channel monitor that extracts price data, stores it in SQLite (with Gregorian + Shamsi timestamps), and streams updates via WebSocket.
+✨ ویژگی‌ها
+📥 نظارت بلادرنگ پیام‌های تلگرام
+اتصال مستقیم به API تلگرام
 
-✨ Features
+پردازش پیام‌های جدید در لحظه دریافت
 
-📥 Real-time Telegram message monitoring
+🧠 استخراج هوشمند قیمت از متن فارسی
+شناسایی الگوهای قیمت در متن‌های فارسی
 
-🧠 Smart Persian text price extraction
+پردازش اعداد به فرمت استاندارد
 
-🗄 SQLite storage with:
+🗄 ذخیره‌سازی SQLite
+Gregorian timestamp: زمان میلادی
 
-Gregorian timestamp
+Shamsi timestamp: زمان شمسی
 
-Shamsi timestamp
+ساختار پایگاه داده بهینه‌شده
 
-📏 Automatic DB size control (500MB max + auto cleanup)
+📏 مدیریت خودکار حجم پایگاه داده
+محدودیت حجم: ۵۰۰ مگابایت
 
-🌐 WebSocket real-time price broadcast
+حذف خودکار قدیمی‌ترین ۲۰٪ رکوردها در صورت لزوم
 
-🔄 Production-ready async architecture
+🌐 پخش بلادرنگ از طریق WebSocket
+ارتباط دوطرفه با کلاینت‌ها
 
-🧾 Logging system
+ارسال بروزرسانی‌ها در لحظه
 
-📦 Requirements
+🔄 معماری آماده‌ی تولید
+طراحی غیرهمزمان (Async)
 
+مدیریت خطا و راه‌اندازی مجدد خودکار
+
+🧾 سیستم لاگ‌گیری جامع
+سطح‌های مختلف لاگ (INFO, DEBUG, ERROR)
+
+ذخیره‌سازی در فایل و نمایش در ترمینال
+
+📦 نیازمندی‌ها
 Python 3.9+
 
-Linux server (recommended)
+سرور لینوکس (توصیه می‌شود)
 
-Telegram API credentials
+اعتبارنامه‌های API تلگرام
 
-🚀 Installation Guide
-1️⃣ Clone Repository
-git clone https://github.com/YOUR_USERNAME/TeleTrack_V2.git
+🚀 راهنمای نصب
+۱️⃣ کلون کردن مخزن
+bash
+git clone https://github.com/YOUR_USERNAME/mazaneh-monitor.git
 cd mazaneh-monitor
+۲️⃣ ایجاد محیط مجازی پایتون
+ایجاد محیط مجازی:
 
-2️⃣ Create Python Virtual Environment
-Create venv
+bash
 python3 -m venv venv
+فعال‌سازی محیط مجازی:
 
-Activate venv
+لینوکس / سرور:
 
-Linux / Server:
-
+bash
 source venv/bin/activate
+اگر با موفقیت فعال شود، باید عبارت (venv) را در ابتدای خط فرمان ببینید.
 
-
-If activated successfully you should see:
-
-(venv)
-
-3️⃣ Install Dependencies
+۳️⃣ نصب وابستگی‌ها
+bash
 pip install --upgrade pip
 pip install telethon websockets python-dotenv aiosqlite jdatetime
+⚙️ پیکربندی
+فایل .env را ایجاد کنید:
 
-⚙️ Configuration
-
-Create .env file:
-
+env
+# Telegram API Credentials
 TELEGRAM_API_ID=YOUR_API_ID
 TELEGRAM_API_HASH=YOUR_API_HASH
 
+# Telegram Channel Configuration
 TELEGRAM_CHANNEL=channel_username
 SESSION_NAME=mazaneh_session
 
+# WebSocket Configuration
 WS_HOST=0.0.0.0
 WS_PORT=8765
 
+# Logging
 LOG_LEVEL=INFO
-
-▶️ Run Project
+▶️ اجرای پروژه
+bash
 python telegramscrap.py
+در صورت موفقیت، خروجی زیر را مشاهده خواهید کرد:
 
+text
+✅ Telegram Connected
+🚀 WS running → ws://0.0.0.0:8765
+📂 فایل‌های تولیدشده
+mazaneh.db - پایگاه داده SQLite
 
-If successful:
+mazaneh_monitor.log - فایل لاگ
 
-Telegram Connected
-WS running → ws://0.0.0.0:8765
+🌐 اتصال WebSocket
+کلاینت‌ها می‌توانند به آدرس زیر متصل شوند:
 
-📂 Generated Files
-mazaneh.db
-mazaneh_monitor.log
-
-🌐 WebSocket Connection
-
-Connect clients to:
-
+text
 ws://SERVER_IP:8765
+🗄 رفتار پایگاه داده
+محدودیت حجم
+حداکثر حجم پایگاه داده: ۵۰۰ مگابایت
 
-🗄 Database Behavior
-Size Limit
+در صورت فراتر رفتن، قدیمی‌ترین ۲۰٪ رکوردها به صورت خودکار حذف می‌شوند
 
-Max DB size: 500MB
-
-If exceeded → oldest 20% records deleted automatically
-
-Stored Data
-Field	Description
-price	Extracted price
-created_at_gregorian	ISO datetime
-created_at_shamsi	Persian datetime
-🧪 Testing Database
+داده‌های ذخیره‌شده
+فیلد	توضیح
+price	قیمت استخراج‌شده
+created_at_gregorian	زمان میلادی (فرمت ISO)
+created_at_shamsi	زمان شمسی
+🧪 تست پایگاه داده
+bash
 sqlite3 mazaneh.db
+نمونه کوئری‌ها:
 
-
-Example queries:
-
+sql
+-- نمایش ۱۰ رکورد اول
 SELECT * FROM mazaneh_prices LIMIT 10;
 
+-- محاسبه میانگین قیمت
 SELECT AVG(price) FROM mazaneh_prices;
 
-🔧 Run as Linux Service (systemd)
-1️⃣ Create Service File
+-- نمایش تعداد رکوردها
+SELECT COUNT(*) FROM mazaneh_prices;
+🔧 اجرا به عنوان سرویس لینوکس (systemd)
+۱️⃣ ایجاد فایل سرویس
+bash
 sudo nano /etc/systemd/system/mazaneh.service
+۲️⃣ قراردادن کانفیگ سرویس
+⚠️ مسیرها را با مسیر سرور خود جایگزین کنید
 
-2️⃣ Paste Service Config
-
-⚠ Replace paths with your server path
-
+ini
 [Unit]
 Description=Mazaneh Monitor Service
 After=network.target
@@ -130,63 +149,55 @@ Restart=always
 
 [Install]
 WantedBy=multi-user.target
-
-3️⃣ Reload systemd
+۳️⃣ بارگذاری مجدد systemd
+bash
 sudo systemctl daemon-reload
-
-4️⃣ Enable Auto Start
+۴️⃣ فعال‌سازی اجرای خودکار
+bash
 sudo systemctl enable mazaneh
-
-5️⃣ Start Service
+۵️⃣ شروع سرویس
+bash
 sudo systemctl start mazaneh
-
-6️⃣ Check Status
+۶️⃣ بررسی وضعیت
+bash
 sudo systemctl status mazaneh
-
-7️⃣ View Logs
+۷️⃣ مشاهده لاگ‌ها
+bash
 journalctl -u mazaneh -f
-
-🛑 Stop Service
+🛑 توقف سرویس
+bash
 sudo systemctl stop mazaneh
-
-🔄 Restart Service
+🔄 راه‌اندازی مجدد سرویس
+bash
 sudo systemctl restart mazaneh
-
-🧯 Troubleshooting
-Virtual Environment Not Activating
-
-Install full python:
-
+🧯 عیب‌یابی
+محیط مجازی فعال نمی‌شود
+bash
 apt install python3-full python3-venv
-
-Port Not Accessible
-
-Open firewall:
-
+پورت قابل دسترسی نیست
+bash
 ufw allow 8765/tcp
+مشکل در ورود تلگرام
+فایل سشن را حذف کرده و دوباره راه‌اندازی کنید.
 
-Telegram Login Issues
+🔐 نکات امنیتی
+❌ هرگز فایل .env را commit نکنید
 
-Delete session file and restart.
+❌ هرگز API HASH را به اشتراک نگذارید
 
-🔐 Security Notes
+🔒 از فایروال برای محافظت از پورت WebSocket استفاده کنید
 
-Never commit .env
+🔑 کلیدهای API را در محیط‌های امن نگهداری کنید
 
-Never share API HASH
+📈 نقشه راه آینده
+ویژگی	وضعیت
+REST API	🟡 برنامه‌ریزی شده
+داشبورد وب	🟡 برنامه‌ریزی شده
+نمودارهای تعاملی	🟡 برنامه‌ریزی شده
+پشتیبانی چند کاناله	🟢 در نسخه فعلی
+سیستم پشتیبان‌گیری	🟡 برنامه‌ریزی شده
+موتور هشدار	🟡 برنامه‌ریزی شده
+📞 پشتیبانی: برای گزارش مشکلات یا پیشنهادات، لطفاً Issue جدید در GitHub ایجاد کنید.
 
-Use firewall for WebSocket port
+⭐ اگر این پروژه برای شما مفید بود، لطفاً ستاره بدید!
 
-📈 Future Roadmap
-
-REST API
-
-Dashboard UI
-
-Chart Visualization
-
-Multi Channel Support
-
-Backup System
-
-Alert Engine
