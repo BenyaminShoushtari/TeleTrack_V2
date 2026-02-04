@@ -26,7 +26,7 @@ WS_PORT = int(os.getenv("WS_PORT", 8765))
 
 LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO")
 
-DB_PATH = "mazaneh.db"
+DB_PATH = "TeleTrack_V2.db"
 MAX_DB_MB = 500
 # ==========================
 
@@ -35,7 +35,7 @@ logging.basicConfig(
     level=getattr(logging, LOG_LEVEL),
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.FileHandler('mazaneh_monitor.log'),
+        logging.FileHandler('TeleTrack_V2_monitor.log'),
         logging.StreamHandler()
     ]
 )
@@ -230,7 +230,7 @@ async def ws_handler(websocket):
 
 # ---------- Main ----------
 async def main():
-    logger.info("Starting Mazaneh Monitor (SQLite Mode)")
+    logger.info("Starting TeleTrack_V2 Monitor")
 
     await init_db()
 
@@ -245,7 +245,7 @@ async def main():
         ping_timeout=10
     )
 
-    logger.info(f"WS running → ws://{WS_HOST}:{WS_PORT}")
+    logger.info(f"WebSocket server running → ws://{WS_HOST}:{WS_PORT}")
 
     await asyncio.gather(
         client.run_until_disconnected(),
