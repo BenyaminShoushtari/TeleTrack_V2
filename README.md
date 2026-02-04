@@ -134,20 +134,20 @@ Connect clients to:
 ## 1️⃣ Create Service File
 
 ``` bash
-sudo nano /etc/systemd/system/mazaneh.service
+sudo nano /etc/systemd/system/TeleTrack_V2.service
 ```
 
 ## 2️⃣ Service Config
 
 ``` ini
 [Unit]
-Description=Mazaneh Monitor Service
+Description=TeleTrack_V2 Monitor Service
 After=network.target
 
 [Service]
 User=root
-WorkingDirectory=/root/mazaneh
-ExecStart=/root/mazaneh/venv/bin/python telegramscrap.py
+WorkingDirectory=/root/TeleTrack_V2
+ExecStart=/root/TeleTrack_V2/venv/bin/python telegramscrap.py
 Restart=always
 
 [Install]
@@ -167,7 +167,7 @@ sudo systemctl daemon-reload
 ## 4️⃣ Enable Auto Start
 
 ``` bash
-sudo systemctl enable mazaneh
+sudo systemctl enable TeleTrack_V2
 ```
 
 ------------------------------------------------------------------------
@@ -175,7 +175,7 @@ sudo systemctl enable mazaneh
 ## 5️⃣ Start Service
 
 ``` bash
-sudo systemctl start mazaneh
+sudo systemctl start TeleTrack_V2
 ```
 
 ------------------------------------------------------------------------
@@ -183,7 +183,7 @@ sudo systemctl start mazaneh
 ## 6️⃣ Check Status
 
 ``` bash
-sudo systemctl status mazaneh
+sudo systemctl status TeleTrack_V2
 ```
 
 ------------------------------------------------------------------------
@@ -191,7 +191,7 @@ sudo systemctl status mazaneh
 ## 7️⃣ View Logs
 
 ``` bash
-journalctl -u mazaneh -f
+journalctl -u TeleTrack_V2 -f
 ```
 
 ------------------------------------------------------------------------
